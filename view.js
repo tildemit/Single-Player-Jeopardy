@@ -152,10 +152,11 @@ function clickListener(row, col, myrow) {
         btnSpan.style.fontSize = "36pt";
     }
     /** Append elements accordingly */
-    btnSpan.innerHTML = row == 0 ? "<strong>CATEGORY " + col + "</strong>" : "<strong>$" + 2*row + "00</strong>";
+    btnSpan.innerHTML  = r == 0 ? "<strong>" + grid[r][c].button_text.toUpperCase() + "</strong>" : "<strong>$" + grid[r][c].button_text + "</strong>";
     button.appendChild(btnSpan);
-    mycol.appendChild(btn);
+    mycol.appendChild(button);
     myrow.appendChild(mycol);
+    grid[r][c].button_element = button;
 }
 
 /** Creates the board of clues */

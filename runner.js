@@ -16,7 +16,8 @@ var questionAnswer;
 function updateScore(){
     if(score < 0){
         document.getElementById("player-score").innerText = "SCORE: -$" + Math.abs(score);
-    } else {
+    } 
+    else {
         document.getElementById("player-score").innerText = "SCORE: $" + score;
     }
 }
@@ -36,7 +37,7 @@ function answerOverride() {
         updateScore();
         clueText.innerText = "Correct! The answer is: \"" + questionAnswer + "\".";
         overrideButton.disabled = true;
-        submitButton.innerText = "Next Clue";
+        submitButton.innerText = "Next Question";
     }
 }
 
@@ -80,14 +81,14 @@ function submitAnswer() {
         overrideButton.disabled = true;
 
         // Tell the player to select a clue in the main clue textbox
-        clueText.innerText = "Select a Clue"
+        clueText.innerText = "Select a Question"
 
         // Clear the info about the clue, as there is no clue in play
         document.getElementById("clue-category").innerText = "Category: ";
         document.getElementById("clue-value").innerText = "Value: ";
         document.getElementById("clue-airdate").innerText = "Air Date: ";
 
-        // Change the "Next Clue" button back into the "Submit Answer" button.
+        // Change the "Next Question" button back into the "Submit Answer" button.
         submitButton.innerText = "Submit Answer";
 
         if (gameOver()){
