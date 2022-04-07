@@ -35,7 +35,7 @@ function answerOverride() {
         /** Add twice to make up for points that were lost */
         score += 2*questionValue; 
         updateScore();
-        clueText.innerText = "Correct! The answer is: \"" + questionAnswer + "\".";
+        clueText.innerText = "Correct! The answer is: " + questionAnswer + ".";
         overrideButton.disabled = true;
         submitButton.innerText = "Next Question";
     }
@@ -55,7 +55,7 @@ function submitAnswer() {
         if (answerBox.value.toLowerCase() == questionAnswer.toLowerCase()) {
             /** If right, tell the player and incremen their score */
             score += questionValue;
-            clueText.innerText = "Correct! The answer is: \"" + questionAnswer + "\".";
+            clueText.innerText = "Correct! The answer is: " + questionAnswer + ".";
         } 
         /** API doesn't have an answer to the clue */
         else if (questionAnswer.length == 0) { 

@@ -66,7 +66,7 @@ function createSidebar() {
     input.type = "text";
     input.className = "form-control"
     input.id = "player-answer";
-    input.placeholder = "Answer (not in the form of a question!)";
+    input.placeholder = "Answer (Not in form of a question!)";
     answer.appendChild(input);
     sidebar.appendChild(answer);
 
@@ -112,7 +112,7 @@ function initButtons() {
             grid[i][j] = {
                     button_element: null,                       
                     button_text: "ERROR"  ,              
-                    value: 200*i,                         
+                    value: 0,                         
                     clue: "ERROR",      
                     answer: "ERROR",                          
                     category: "ERROR", 
@@ -173,8 +173,41 @@ function createBoard() {
         myrow.className = r == 0 ? "d-flex flex-row mx-1 my-2" : "d-flex flex-row mx-1";
 
         for (var c = 0; c < grid[r].length; c++) {
-            /** Call clickListener on the row column, and row element to tie the clue to the button */
-            clickListener(r, c, myrow)
+            /** Call inlaid function (so we keep track of r and c) to create and fix up the clue element for the given row and column,
+            * and add a click event listener to the button 
+            * */
+            (function (r, c) {
+                var mycol = document.createElement("div");
+                mycol.className = "d-flex flex-column";
+
+                var btn = document.createElement("button");
+                btn.type = "button";
+                btn.style.width = "10em"; 
+                btn.style.height = "7em";
+                btn.className = "btn btn-primary btn-block border border-light"
+                btn.disabled = false;
+                btn.addEventListener("click", function () {
+                    clueClick(r, c);
+                });
+
+                var btnSpan = document.createElement("span");
+                if (r == 0) {
+                    btnSpan.style.color = "white";
+                } 
+                else {
+                    btnSpan.style.color = "yellow";
+                    btnSpan.style.fontSize = "36pt";
+                }
+                btnSpan.innerHTML  = r == 0 ? "<strong>" + grid[r][c].button_text.toUpperCase() + "</strong>" : "<strong>$" + grid[r][c].button_text + "</strong>";
+                
+
+                btn.appendChild(btnSpan);
+                mycol.appendChild(btn);
+                myrow.appendChild(mycol);
+                
+                grid[r][c].button_element = btn;
+
+            }(r, c));
         }
         board.appendChild(myrow);
     }
