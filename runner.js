@@ -52,7 +52,7 @@ function submitAnswer() {
 
     if(submitButton.innerText === "Submit Answer"){
         /** Compare input answer to actual answer */
-        if (playerAnswerBox.value == questionAnswer) {
+        if (answerBox.value.toLowerCase() == questionAnswer.toLowerCase()) {
             /** If right, tell the player and incremen their score */
             score += questionValue;
             clueText.innerText = "Correct! The answer is: " + questionAnswer + ".";
@@ -134,7 +134,7 @@ function clueClick(r, c) {
     document.getElementById("clue-text").innerText = grid[r][c].clue;
 
     // Display the clue's traits below the clue description, and keep track of correct and input values
-    document.getElementById("clue-category").innerText = "Category: " + grid[r][c].category;
+    document.getElementById("clue-category").innerText = "Category: " + grid[r][c].category.toUpperCase();
     questionAnswer = grid[r][c].answer;
     questionValue = grid[r][c].value;
     document.getElementById("clue-value").innerText = "Value: $" + questionValue;
