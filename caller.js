@@ -3,8 +3,12 @@ This file is responsible for interacting with the jService API. Main function is
 receiving five sets of random clues from sixe categories in the database, along
 with clue information (air data, point value, etc.)
 */
+
+/** List of categories */
 var categories = []
+/** List of clues */
 var clues = [];
+
 /** Function to request data from jService */
 function initRequests() {
   /** Create a random offset value using Math.random() so clue categories are randomized */
