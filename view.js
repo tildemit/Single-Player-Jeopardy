@@ -112,7 +112,7 @@ function initButtons() {
             grid[i][j] = {
                     button_element: null,                       
                     button_text: "ERROR"  ,              
-                    value: 0,                         
+                    value: 200*i,                         
                     clue: "ERROR",      
                     answer: "ERROR",                          
                     category: "ERROR", 
