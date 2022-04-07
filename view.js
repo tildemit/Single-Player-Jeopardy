@@ -73,7 +73,7 @@ function createSidebar() {
     var button_row = document.createElement("div");
     button_row.className = "d-flex flex-row";
 
-    /** Button to submit the desire answer */
+    /** Button to submit the desired answer */
     var submit = document.createElement("button");
     submit.type = "button";
     submit.className = "mt-2 btn btn-primary btn-block border border-light";
@@ -105,8 +105,20 @@ function createSidebar() {
 /** Creates an empty button array using the dimensions var */
 function initButtons() {
     grid = new Array(dimensions.rows);
+
     for (var i = 0; i < grid.length; i++) {
         grid[i] = new Array(dimensions.cols);
+        for(var j = 0; j < grid[i].length; j++){
+            grid[i][j] = {
+                    button_element: null,                       
+                    button_text: "ERROR"  ,              
+                    value: 200*i,                         
+                    clue: "ERROR",      
+                    answer: "ERROR",                          
+                    category: "ERROR", 
+                    air_date: "ERROR"  
+            };
+        }
     }
 }
 
@@ -149,6 +161,7 @@ function clickListener(row, col, myrow) {
 /** Creates the board of clues */
 function createBoard() {
     initButtons();
+    display()
 
     var board = document.createElement("div");
     board.className = "d-flex flex-column";
@@ -176,6 +189,7 @@ function create() {
     container.className = "d-flex flex-row";
     container.id = "container";
     document.body.appendChild(container);
+    initRequests()
     createBoard();
     createSidebar();
 } 

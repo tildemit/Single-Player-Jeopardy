@@ -30,12 +30,11 @@ function answerOverride() {
     var overrideButton = document.getElementById("answer-override");
     var clueText = document.getElementById("clue-text");
 
-    if(questionInPlay){
-        questionInPlay = false;
+    if (questionInPlay) {
         /** Add twice to make up for points that were lost */
         score += 2*questionValue; 
         updateScore();
-        clueText.innerText = "Correct! The answer is: " + questionAnswer + ".";
+        clueText.innerText = "Correct! The answer is: \"" + questionAnswer + "\".";
         overrideButton.disabled = true;
         submitButton.innerText = "Next Clue";
     }
@@ -55,7 +54,12 @@ function submitAnswer() {
         if (answerBox.value.toLowerCase() == questionAnswer.toLowerCase()) {
             /** If right, tell the player and incremen their score */
             score += questionValue;
-            clueText.innerText = "Correct! The answer is: " + questionAnswer + ".";
+            clueText.innerText = "Correct! The answer is: \"" + questionAnswer + "\".";
+        } 
+        /** API doesn't have an answer to the clue */
+        else if (questionAnswer.length == 0) { 
+            score += questionValue;
+            clueText.innerHTML = "This question is missing an answer";
         } 
         else {
             /** If wrong, give the override option and deduct points */
@@ -85,7 +89,21 @@ function submitAnswer() {
 
         // Change the "Next Clue" button back into the "Submit Answer" button.
         submitButton.innerText = "Submit Answer";
+
+        if (gameOver()){
+            document.getElementById("clue-text").innerText = "The game is over. How did you do?";
+        }
     }
+}
+
+/** Checks if category c is finished: all questions in that category have been clicked. */
+function categoryFinished(c) {
+    for (var row = 1; row < dimensions.rows; row++) {
+        if (!grid[row][c].button_element.disabled) {
+            return false;
+        }
+    }
+    return true;
 }
 
 /** Checks if the game is over. */
@@ -95,16 +113,6 @@ function gameOver() {
             if (!grid[i][j].button_element.disabled) {
                 return false;
             }
-        }
-    }
-    return true;
-}
-
-/** Checks if category c is finished: all questions in that category have been clicked. */
-function categoryFinished(c) {
-    for (var row = 1; row < dimensions.rows; row++) {
-        if (!grid[row][c].button_element.disabled) {
-            return false;
         }
     }
     return true;
@@ -138,7 +146,8 @@ function clueClick(r, c) {
     questionAnswer = grid[r][c].answer;
     questionValue = grid[r][c].value;
     document.getElementById("clue-value").innerText = "Value: $" + questionValue;
-    document.getElementById("clue-airdate").innerText = "Air Date: " + grid[r][c].air_date;
+    var date = new Date(grid[r][c].air_date);
+    document.getElementById("clue-airdate").innerText = "Air Date: " + date.toDateString().substring(4);
 
     // Check if category is finished and disable category button if it is.
     if (categoryFinished(c)) {
