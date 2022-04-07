@@ -14,7 +14,7 @@ var questionAnswer;
 
 /** Updates the score displayed to the user to reflect the value of the score variable. */
 function updateScore(){
-    if(score < 0){
+    if (score < 0){
         document.getElementById("player-score").innerText = "SCORE: -$" + Math.abs(score);
     } 
     else {
@@ -74,16 +74,16 @@ function submitAnswer() {
         submitButton.innerText = "Next Question";
     } 
     else if (submitButton.innerText === "Next Question"){
-        // Clear the player's answer from the answer box and disable buttons
+        /** Clear the player's answer from the answer box and disable buttons */
         answerBox.value = "";
         questionInPlay = false;
         submitButton.disabled = true;
         overrideButton.disabled = true;
 
-        // Tell the player to select a clue in the main clue textbox
+        /** Tell the player to select a clue in the main clue textbox */
         clueText.innerText = "Select a Question"
 
-        // Clear the info about the clue, as there is no clue in play
+        /** Clear the info about the clue, as there is no clue in play */
         document.getElementById("clue-category").innerText = "Category: ";
         document.getElementById("clue-value").innerText = "Value: ";
         document.getElementById("clue-airdate").innerText = "Air Date: ";
@@ -121,12 +121,12 @@ function gameOver() {
 
 /** Behavior when a clue is clicked to be played */
 function clueClick(r, c) {
-    // Ignore presses if question is already in play
+    /** Ignore presses if question is already in play */
     if (questionInPlay) {
         return;
     }
 
-    // If they click a category button, choose the lowest-value clue to play
+    /** If they click a category button, choose the lowest-value clue to play */
     if (r == 0) {
         for (var row = 1; row < dimensions.rows; row++) {
             if (!grid[row][c].button_element.disabled) {
@@ -138,11 +138,11 @@ function clueClick(r, c) {
 
     questionInPlay = true;
     document.getElementById("answer-submit").disabled = false;
-    // Disable the clicked button and display clue's text
+    /** Disable the clicked button and display clue's text */
     grid[r][c].button_element.disabled = true;
     document.getElementById("clue-text").innerText = grid[r][c].clue;
 
-    // Display the clue's traits below the clue description, and keep track of correct and input values
+    /** Display the clue's traits below the clue description, and keep track of correct and input values */
     document.getElementById("clue-category").innerText = "Category: " + grid[r][c].category.toUpperCase();
     questionAnswer = grid[r][c].answer;
     questionValue = grid[r][c].value;
@@ -150,7 +150,7 @@ function clueClick(r, c) {
     var date = new Date(grid[r][c].air_date);
     document.getElementById("clue-airdate").innerText = "Air Date: " + date.toDateString().substring(4);
 
-    // Check if category is finished and disable category button if it is.
+    /** Check if category is finished and disable category button if it is. */
     if (categoryFinished(c)) {
         grid[0][c].button_element.disabled = true;
     }
